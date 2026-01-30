@@ -10,7 +10,20 @@ Responsabilidades:
 - Gestionar conocimiento de Guru
 """
 
-from .supabase_client import SupabaseManager
+from .supabase_client import (
+    ConnectionError,
+    DatabaseError,
+    NotFoundError,
+    SupabaseManager,
+    ValidationError,
+)
 
 __version__ = "0.1.0"
-__all__ = ["SupabaseManager"]
+
+__all__ = [
+    "SupabaseManager",
+    "DatabaseError",
+    "ConnectionError",
+    "NotFoundError",
+    "ValidationError",
+]

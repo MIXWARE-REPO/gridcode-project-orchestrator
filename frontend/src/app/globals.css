@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Base styles */
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-dark-50 text-dark-900 antialiased;
+  }
+}
+
+/* Component utilities */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500;
+  }
+
+  .btn-secondary {
+    @apply btn bg-dark-200 text-dark-800 hover:bg-dark-300 focus:ring-dark-400;
+  }
+
+  .btn-ghost {
+    @apply btn bg-transparent text-dark-700 hover:bg-dark-100 focus:ring-dark-300;
+  }
+
+  .input {
+    @apply w-full px-4 py-3 rounded-lg border border-dark-300 bg-white text-dark-900 placeholder-dark-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-dark-200;
+  }
+
+  .card-hover {
+    @apply card hover:shadow-md hover:border-dark-300 transition-all duration-200;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply badge bg-green-100 text-green-800;
+  }
+
+  .badge-warning {
+    @apply badge bg-yellow-100 text-yellow-800;
+  }
+
+  .badge-info {
+    @apply badge bg-blue-100 text-blue-800;
+  }
+
+  .badge-error {
+    @apply badge bg-red-100 text-red-800;
+  }
+}
+
+/* Chat specific styles */
+.chat-bubble {
+  @apply px-4 py-3 rounded-2xl max-w-[85%];
+}
+
+.chat-bubble-user {
+  @apply chat-bubble bg-primary-500 text-white ml-auto rounded-br-md;
+}
+
+.chat-bubble-assistant {
+  @apply chat-bubble bg-dark-100 text-dark-900 mr-auto rounded-bl-md;
+}
+
+/* Markdown in chat */
+.chat-bubble-assistant p {
+  @apply mb-2 last:mb-0;
+}
+
+.chat-bubble-assistant strong {
+  @apply font-semibold;
+}
+
+.chat-bubble-assistant ul,
+.chat-bubble-assistant ol {
+  @apply ml-4 mb-2;
+}
+
+.chat-bubble-assistant li {
+  @apply mb-1;
+}
+
+/* Phase indicator */
+.phase-indicator {
+  @apply relative flex items-center;
+}
+
+.phase-indicator::before {
+  content: "";
+  @apply absolute left-4 top-8 w-0.5 h-full bg-dark-200 -z-10;
+}
+
+.phase-indicator:last-child::before {
+  @apply hidden;
+}
+
+/* Agent status indicator */
+.status-dot {
+  @apply w-2 h-2 rounded-full;
+}
+
+.status-dot-working {
+  @apply status-dot bg-green-500 animate-pulse-soft;
+}
+
+.status-dot-idle {
+  @apply status-dot bg-dark-400;
+}
+
+.status-dot-completed {
+  @apply status-dot bg-blue-500;
+}
+
+.status-dot-blocked {
+  @apply status-dot bg-red-500;
+}

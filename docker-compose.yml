@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  # ─────────────────────────────────────────────────────────────────
+  # Supabase Local (opcional - recomendamos Supabase Cloud)
+  # Descomenta si prefieres base de datos local
+  # ─────────────────────────────────────────────────────────────────
+  # postgres:
+  #   image: postgres:15-alpine
+  #   environment:
+  #     POSTGRES_DB: gripro
+  #     POSTGRES_USER: gripro_user
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - gripro-network
+
+  # ─────────────────────────────────────────────────────────────────
+  # GriPro API Backend (FastAPI)
+  # ─────────────────────────────────────────────────────────────────
+  gripro-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gripro-api
+    environment:
+      # Environment
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      DEBUG: ${DEBUG:-true}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+
+      # JWT Secret
+      JWT_SECRET: ${JWT_SECRET:-gripro-dev-secret-change-in-production}
+
+      # PRO Accounts (Flat Rate - No API keys)
+      ANTHROPIC_PRO_ENABLED: ${ANTHROPIC_PRO_ENABLED:-true}
+      GOOGLE_PRO_ENABLED: ${GOOGLE_PRO_ENABLED:-true}
+      OPENAI_PRO_ENABLED: ${OPENAI_PRO_ENABLED:-true}
+
+      # Supabase (usa Supabase Cloud)
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY}
+
+      # Hetzner (solo deployment)
+      HETZNER_API_TOKEN: ${HETZNER_API_TOKEN:-}
+      HETZNER_VPS_ID: ${HETZNER_VPS_ID:-}
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - /app/venv           # No sincronizar venv
+      - /app/__pycache__    # No sincronizar cache
+    command: python -m uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - gripro-network
+    restart: unless-stopped
+
+  # ─────────────────────────────────────────────────────────────────
+  # GriPro Dashboard Frontend (Next.js)
+  # ─────────────────────────────────────────────────────────────────
+  gripro-dashboard:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: gripro-dashboard
+    environment:
+      NEXT_PUBLIC_API_URL: http://gripro-api:8000
+      NEXT_PUBLIC_WS_URL: ws://gripro-api:8000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules   # No sincronizar node_modules
+      - /app/.next          # No sincronizar build cache
+    depends_on:
+      - gripro-api
+    networks:
+      - gripro-network
+    restart: unless-stopped
+
+# ─────────────────────────────────────────────────────────────────
+# Volumes (descomenta si usas PostgreSQL local)
+# ─────────────────────────────────────────────────────────────────
+# volumes:
+#   postgres_data:
+
+# ─────────────────────────────────────────────────────────────────
+# Networks
+# ─────────────────────────────────────────────────────────────────
+networks:
+  gripro-network:
+    driver: bridge
