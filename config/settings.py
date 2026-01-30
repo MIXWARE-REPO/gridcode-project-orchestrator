@@ -120,6 +120,52 @@ class Settings(BaseSettings):
     )
 
     # ─────────────────────────────────────────────────────────────────
+    # Primo Email Configuration (Dreamhost IMAP)
+    # ─────────────────────────────────────────────────────────────────
+    primo_email: str = Field(
+        default="Henry.Primo@centual.eu",
+        description="Primo's email address",
+    )
+
+    primo_email_password: Optional[str] = Field(
+        default=None,
+        description="Primo's email password",
+    )
+
+    primo_imap_host: str = Field(
+        default="imap.dreamhost.com",
+        description="IMAP server host",
+    )
+
+    primo_imap_port: int = Field(
+        default=993,
+        description="IMAP server port",
+    )
+
+    primo_smtp_host: str = Field(
+        default="smtp.dreamhost.com",
+        description="SMTP server host",
+    )
+
+    primo_smtp_port: int = Field(
+        default=465,
+        description="SMTP server port",
+    )
+
+    # ─────────────────────────────────────────────────────────────────
+    # Telegram Bot Configuration
+    # ─────────────────────────────────────────────────────────────────
+    telegram_bot_token: Optional[str] = Field(
+        default=None,
+        description="Telegram Bot token from BotFather",
+    )
+
+    telegram_bot_username: str = Field(
+        default="GriProPrimoBot",
+        description="Telegram Bot username",
+    )
+
+    # ─────────────────────────────────────────────────────────────────
     # Local Session Storage
     # ─────────────────────────────────────────────────────────────────
     local_session_path: Path = Field(
@@ -267,6 +313,24 @@ class Settings(BaseSettings):
             True if both SUPABASE_URL and SUPABASE_ANON_KEY are set.
         """
         return bool(self.supabase_url and self.supabase_anon_key)
+
+    def has_email_config(self) -> bool:
+        """
+        Check if Primo email is configured.
+
+        Returns:
+            True if PRIMO_EMAIL_PASSWORD is set.
+        """
+        return bool(self.primo_email_password)
+
+    def has_telegram_config(self) -> bool:
+        """
+        Check if Telegram bot is configured.
+
+        Returns:
+            True if TELEGRAM_BOT_TOKEN is set.
+        """
+        return bool(self.telegram_bot_token)
 
     def get_enabled_providers(self) -> list[str]:
         """

@@ -1,0 +1,480 @@
+# GriPro Resource Library
+# Biblioteca de recursos especializados para asignacion de proyectos
+#
+# Estructura jerarquica:
+#   Nivel 1: Departamentos genericos (2h/50 LOC)
+#   Nivel 2: Especialistas departamentales (2h/30 LOC)
+#   Nivel 3: Sub-especialistas (2h/20 LOC)
+
+metadata:
+  version: "1.0.0"
+  updated_at: "2026-01-30"
+  methodology:
+    base_ratio: "4h = 100 LOC"
+    sources:
+      - author: "Fred Brooks"
+        work: "The Mythical Man-Month"
+        year: 1975
+        metric: "~10 LOC/day"
+      - author: "Capers Jones"
+        work: "Applied Software Measurement"
+        year: 2008
+        metric: "8-16 LOC/day"
+      - author: "Steve McConnell"
+        work: "Code Complete"
+        year: 2004
+        metric: "10-50 LOC/day average"
+
+# ============================================
+# NIVEL 1 - DEPARTAMENTOS GENERICOS
+# Ratio: 2 horas por cada 50 lineas o fraccion
+# ============================================
+level_1:
+  loc_per_2h: 50
+  description: "Departamentos genericos con tareas estandar"
+
+  departments:
+    fronti_frontend:
+      name: "Frontend Development"
+      alias: "Fronti"
+      display_name: "Desarrollo Frontend"
+      description: "Desarrollo de interfaces de usuario"
+      skills:
+        - "React/Next.js"
+        - "Vue.js"
+        - "TypeScript"
+        - "CSS/Tailwind"
+        - "Component Architecture"
+      typical_tasks:
+        - "Componentes UI basicos"
+        - "Paginas y layouts"
+        - "Integracion con APIs"
+        - "Responsive design"
+
+    baky_backend:
+      name: "Backend Development"
+      alias: "Baky"
+      display_name: "Desarrollo Backend"
+      description: "Desarrollo de logica de servidor y APIs"
+      skills:
+        - "Python/FastAPI"
+        - "Node.js"
+        - "PostgreSQL"
+        - "REST APIs"
+        - "Database Design"
+      typical_tasks:
+        - "Endpoints API"
+        - "Logica de negocio"
+        - "Integracion bases de datos"
+        - "Autenticacion"
+
+    devi_devops:
+      name: "DevOps & Infrastructure"
+      alias: "Devi"
+      display_name: "DevOps e Infraestructura"
+      description: "CI/CD, deployment y mantenimiento"
+      skills:
+        - "Docker"
+        - "GitHub Actions"
+        - "Cloud platforms"
+        - "Monitoring"
+        - "Infrastructure as Code"
+      typical_tasks:
+        - "Setup de CI/CD"
+        - "Deployment pipelines"
+        - "Configuracion servidores"
+        - "Monitoring setup"
+
+    qai_testing:
+      name: "Quality Assurance"
+      alias: "Qai"
+      display_name: "Control de Calidad"
+      description: "Testing y aseguramiento de calidad"
+      skills:
+        - "Unit testing"
+        - "Integration testing"
+        - "E2E testing"
+        - "Test planning"
+        - "Bug tracking"
+      typical_tasks:
+        - "Test cases"
+        - "Regression testing"
+        - "Bug reports"
+        - "Test automation basica"
+
+    secu_security:
+      name: "Security & Compliance"
+      alias: "Secu"
+      display_name: "Seguridad y Compliance"
+      description: "Seguridad de aplicaciones y cumplimiento"
+      skills:
+        - "OWASP"
+        - "Security auditing"
+        - "Compliance checks"
+        - "Vulnerability assessment"
+      typical_tasks:
+        - "Security review"
+        - "Dependency audit"
+        - "Auth implementation review"
+        - "Compliance checklist"
+
+    mark_documentation:
+      name: "Documentation"
+      alias: "Mark"
+      display_name: "Documentacion"
+      description: "Documentacion tecnica y de usuario"
+      skills:
+        - "Technical writing"
+        - "API documentation"
+        - "User guides"
+        - "Architecture docs"
+      typical_tasks:
+        - "README files"
+        - "API docs"
+        - "User documentation"
+        - "Architecture diagrams"
+
+# ============================================
+# NIVEL 2 - ESPECIALISTAS DEPARTAMENTALES
+# Ratio: 2 horas por cada 30 lineas o fraccion
+# ============================================
+level_2:
+  loc_per_2h: 30
+  description: "Especialistas dentro de cada departamento"
+
+  specialists:
+    # Frontend Specialists
+    ux_designer:
+      name: "UX Designer"
+      alias: "UX"
+      parent: "fronti_frontend"
+      display_name: "Disenador UX"
+      description: "Experiencia de usuario y flujos"
+      skills:
+        - "User research"
+        - "Wireframing"
+        - "User flows"
+        - "Usability testing"
+        - "Information architecture"
+      typical_tasks:
+        - "User journey mapping"
+        - "Wireframes"
+        - "Prototype flows"
+        - "Usability improvements"
+
+    ui_designer:
+      name: "UI Designer"
+      alias: "UI"
+      parent: "fronti_frontend"
+      display_name: "Disenador UI"
+      description: "Diseno visual de interfaces"
+      skills:
+        - "Visual design"
+        - "Design systems"
+        - "Figma"
+        - "Typography"
+        - "Color theory"
+      typical_tasks:
+        - "Visual mockups"
+        - "Design system components"
+        - "Icon design"
+        - "Style guides"
+
+    # Backend Specialists
+    api_architect:
+      name: "API Architect"
+      alias: "APIArch"
+      parent: "baky_backend"
+      display_name: "Arquitecto de APIs"
+      description: "Diseno y arquitectura de APIs"
+      skills:
+        - "API design patterns"
+        - "OpenAPI/Swagger"
+        - "GraphQL"
+        - "REST best practices"
+        - "Versioning strategies"
+      typical_tasks:
+        - "API schema design"
+        - "Contract definition"
+        - "Endpoint optimization"
+        - "API documentation"
+
+    database_engineer:
+      name: "Database Engineer"
+      alias: "DBEng"
+      parent: "baky_backend"
+      display_name: "Ingeniero de Bases de Datos"
+      description: "Optimizacion y diseno de bases de datos"
+      skills:
+        - "Query optimization"
+        - "Database modeling"
+        - "Indexing strategies"
+        - "Migration design"
+        - "Performance tuning"
+      typical_tasks:
+        - "Schema optimization"
+        - "Complex queries"
+        - "Migration scripts"
+        - "Performance analysis"
+
+    # Security Specialists
+    security_auditor:
+      name: "Security Auditor"
+      alias: "SecAudit"
+      parent: "secu_security"
+      display_name: "Auditor de Seguridad"
+      description: "Auditorias de seguridad especializadas"
+      skills:
+        - "Penetration testing"
+        - "Code review for security"
+        - "SAST/DAST"
+        - "Threat modeling"
+      typical_tasks:
+        - "Security audits"
+        - "Vulnerability reports"
+        - "Remediation plans"
+        - "Security testing"
+
+    # DevOps Specialists
+    performance_engineer:
+      name: "Performance Engineer"
+      alias: "PerfEng"
+      parent: "devi_devops"
+      display_name: "Ingeniero de Performance"
+      description: "Optimizacion de rendimiento"
+      skills:
+        - "Load testing"
+        - "Profiling"
+        - "Caching strategies"
+        - "CDN optimization"
+        - "Bundle optimization"
+      typical_tasks:
+        - "Performance audits"
+        - "Load testing"
+        - "Optimization implementation"
+        - "Monitoring setup"
+
+    # QA Specialists
+    test_automation:
+      name: "Test Automation Engineer"
+      alias: "AutoTest"
+      parent: "qai_testing"
+      display_name: "Ingeniero de Automatizacion"
+      description: "Automatizacion de testing"
+      skills:
+        - "Cypress"
+        - "Playwright"
+        - "Jest"
+        - "CI/CD integration"
+        - "Test frameworks"
+      typical_tasks:
+        - "E2E test suites"
+        - "Integration test automation"
+        - "CI pipeline tests"
+        - "Test infrastructure"
+
+# ============================================
+# NIVEL 3 - SUB-ESPECIALISTAS
+# Ratio: 2 horas por cada 20 lineas o fraccion
+# ============================================
+level_3:
+  loc_per_2h: 20
+  description: "Sub-especialistas para tareas muy especificas"
+
+  sub_specialists:
+    # UX Sub-specialists
+    seo_specialist:
+      name: "SEO Specialist"
+      alias: "SEO"
+      parent: "ux_designer"
+      display_name: "Especialista SEO"
+      description: "Optimizacion para motores de busqueda"
+      skills:
+        - "Technical SEO"
+        - "Core Web Vitals"
+        - "Structured data"
+        - "Meta optimization"
+        - "Analytics"
+      typical_tasks:
+        - "SEO audit"
+        - "Meta tags optimization"
+        - "Schema markup"
+        - "Performance for SEO"
+
+    accessibility_expert:
+      name: "Accessibility Expert"
+      alias: "A11y"
+      parent: "ux_designer"
+      display_name: "Experto en Accesibilidad"
+      description: "Cumplimiento WCAG y accesibilidad"
+      skills:
+        - "WCAG 2.1"
+        - "ARIA"
+        - "Screen reader testing"
+        - "Color contrast"
+        - "Keyboard navigation"
+      typical_tasks:
+        - "Accessibility audit"
+        - "ARIA implementation"
+        - "Keyboard nav fixes"
+        - "Screen reader optimization"
+
+    # UI Sub-specialists
+    animation_expert:
+      name: "Animation Expert"
+      alias: "Anim"
+      parent: "ui_designer"
+      display_name: "Experto en Animaciones"
+      description: "Animaciones complejas y transiciones"
+      skills:
+        - "Framer Motion"
+        - "GSAP"
+        - "CSS animations"
+        - "Micro-interactions"
+        - "Performance optimization"
+      typical_tasks:
+        - "Complex animations"
+        - "Page transitions"
+        - "Micro-interactions"
+        - "Loading states"
+
+    # API Sub-specialists
+    graphql_specialist:
+      name: "GraphQL Specialist"
+      alias: "GQL"
+      parent: "api_architect"
+      display_name: "Especialista GraphQL"
+      description: "APIs GraphQL avanzadas"
+      skills:
+        - "GraphQL schema design"
+        - "Apollo"
+        - "Subscriptions"
+        - "Federation"
+        - "DataLoader"
+      typical_tasks:
+        - "GraphQL schema"
+        - "Resolvers"
+        - "Subscriptions setup"
+        - "Query optimization"
+
+    # Backend Sub-specialists
+    realtime_specialist:
+      name: "Real-time Specialist"
+      alias: "RT"
+      parent: "baky_backend"
+      display_name: "Especialista en Tiempo Real"
+      description: "WebSockets y sistemas de eventos"
+      skills:
+        - "WebSocket"
+        - "Socket.io"
+        - "Event-driven architecture"
+        - "Pub/Sub"
+        - "Real-time databases"
+      typical_tasks:
+        - "WebSocket setup"
+        - "Event system"
+        - "Real-time sync"
+        - "Notification system"
+
+    # Security Sub-specialists
+    pentest_expert:
+      name: "Penetration Tester"
+      alias: "PenTest"
+      parent: "security_auditor"
+      display_name: "Tester de Penetracion"
+      description: "Testing de penetracion avanzado"
+      skills:
+        - "Ethical hacking"
+        - "OWASP Top 10"
+        - "Burp Suite"
+        - "SQL injection"
+        - "XSS testing"
+      typical_tasks:
+        - "Penetration test"
+        - "Vulnerability exploitation"
+        - "Security report"
+        - "Remediation verification"
+
+    # Performance Sub-specialists
+    mobile_performance:
+      name: "Mobile Performance Expert"
+      alias: "MobPerf"
+      parent: "performance_engineer"
+      display_name: "Experto en Performance Mobile"
+      description: "Optimizacion para dispositivos moviles"
+      skills:
+        - "Mobile profiling"
+        - "Bundle analysis"
+        - "Image optimization"
+        - "Network optimization"
+        - "Battery efficiency"
+      typical_tasks:
+        - "Mobile performance audit"
+        - "Bundle size reduction"
+        - "Lazy loading"
+        - "Network request optimization"
+
+# ============================================
+# REGLAS DE COORDINACION
+# ============================================
+coordination:
+  meetings:
+    handoff:
+      description: "Reunion de traspaso de requerimientos"
+      by_complexity:
+        simple:
+          loc_threshold: 50
+          file_threshold: 1
+          hours: 1.0
+        medium:
+          loc_range: [50, 200]
+          file_range: [2, 5]
+          hours: 1.5
+        complex:
+          loc_threshold: 200
+          file_threshold: 5
+          hours: 2.0
+
+    delivery:
+      description: "Reunion de entrega y review"
+      by_type:
+        partial:
+          description: "Feature incompleto"
+          hours: 0.5
+        complete:
+          description: "Feature completo"
+          hours: 1.0
+        final:
+          description: "Modulo completo"
+          hours: 1.5
+
+# ============================================
+# PROYECTO TIPO
+# ============================================
+project_templates:
+  web_app_small:
+    name: "Web App Pequena"
+    typical_duration: "2-4 weeks"
+    typical_team:
+      level_1: ["fronti_frontend", "baky_backend"]
+      level_2: []
+      level_3: []
+    estimated_loc: 2000
+
+  web_app_medium:
+    name: "Web App Mediana"
+    typical_duration: "1-2 months"
+    typical_team:
+      level_1: ["fronti_frontend", "baky_backend", "qai_testing"]
+      level_2: ["ux_designer", "api_architect"]
+      level_3: []
+    estimated_loc: 8000
+
+  web_app_large:
+    name: "Web App Grande"
+    typical_duration: "3-6 months"
+    typical_team:
+      level_1: ["fronti_frontend", "baky_backend", "devi_devops", "qai_testing", "secu_security"]
+      level_2: ["ux_designer", "ui_designer", "api_architect", "database_engineer", "security_auditor"]
+      level_3: ["seo_specialist", "animation_expert", "graphql_specialist"]
+    estimated_loc: 25000
